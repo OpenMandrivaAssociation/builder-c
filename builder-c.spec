@@ -1,11 +1,12 @@
 Summary:        ABF builder in pure C
 Name:           builder-c
 Version:        1.0
-Release:        1
+Release:        2
 License:        GPLv2+
 Group:          Monitoring
 Url:            https://abf.openmandriva.org
-Source0:	https://github.com/DuratarskeyK/builder-c/archive/%{version}.zip
+# use version here
+Source0:	https://github.com/DuratarskeyK/builder-c/archive/master.tar.gz
 
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libconfig)
@@ -14,7 +15,7 @@ BuildRequires:  pkgconfig(libconfig)
 Builder for ABF
 
 %prep
-%setup -q
+%setup -qn %{name}-master
 
 %build
 %{__cc} %{optflags} -lconfig -lcurl -pthread jsmn.c statistics.c live_inspector.c live_logger.c exec_build.c api.c main.c -o builder
