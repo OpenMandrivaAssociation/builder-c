@@ -19,6 +19,7 @@ Builder for ABF
 %setup -qn %{name}-master
 
 %build
+%setup_compile_flags
 %{__cc} %{optflags} %{_ldflags} -lconfig -lcurl -pthread -ljemalloc jsmn.c statistics.c live_inspector.c live_logger.c exec_build.c api.c main.c -o builder
 
 
