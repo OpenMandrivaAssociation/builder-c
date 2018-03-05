@@ -1,7 +1,7 @@
 Summary:        ABF builder in pure C
 Name:           builder-c
 Version:        1.0
-Release:        7
+Release:        8
 License:        GPLv2+
 Group:          Monitoring
 Url:            https://abf.openmandriva.org
@@ -17,6 +17,9 @@ Builder for ABF
 
 %prep
 %setup -qn %{name}-master
+# only for 3.0 branch
+# in cooker we use master and dnf
+sed -i 's!master!3.0!g' builder.conf
 
 %build
 %setup_compile_flags
