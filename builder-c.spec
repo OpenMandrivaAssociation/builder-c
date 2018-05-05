@@ -1,4 +1,8 @@
 %ifarch aarch64
+# As of cooker 4.0-20180505, jemalloc 5.0.1, builder-c crashes on startup
+# on Snapdragon 820 based boards (works fine on other aarch64 boards
+# though) if built with jemalloc. Works fine on any board with
+# glibc malloc.
 %bcond_with jemalloc
 %else
 %bcond_without jemalloc
