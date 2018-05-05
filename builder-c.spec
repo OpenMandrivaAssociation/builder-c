@@ -1,7 +1,13 @@
+%ifarch aarch64
+%bcond_with jemalloc
+%else
+%bcond_without jemalloc
+%endif
+
 Summary:        ABF builder in pure C
 Name:           builder-c
 Version:        1.0
-Release:        8
+Release:        9
 License:        GPLv2+
 Group:          Monitoring
 Url:            https://abf.openmandriva.org
@@ -10,7 +16,9 @@ Source0:	https://github.com/DuratarskeyK/builder-c/archive/master.tar.gz
 
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libconfig)
+%if %{with jemalloc}
 BuildRequires:  pkgconfig(jemalloc)
+%endif
 
 %description
 Builder for ABF.
@@ -20,7 +28,12 @@ Builder for ABF.
 
 %build
 %setup_compile_flags
-%{__cc} %{optflags} %{ldflags} -L`jemalloc-config --libdir` -lconfig -lcurl -pthread -ljemalloc `jemalloc-config --libs` jsmn.c statistics.c live_inspector.c live_logger.c exec_build.c api.c main.c -o builder
+%if %{with jemalloc}
+MALLOC_FLAGS="-L`jemalloc-config --libdir` -ljemalloc `jemalloc-config --libs`"
+%else
+MALLOC_FLAGS=""
+%endif
+%{__cc} %{optflags} %{ldflags} $MALLOC_FLAGS -lconfig -lcurl -pthread jsmn.c statistics.c live_inspector.c live_logger.c exec_build.c api.c main.c -o builder
 
 %install
 mkdir -p %{buildroot}%{_bindir}
