@@ -1,0 +1,21 @@
+[Unit]
+Description=OpenMandriva builder application for abf.openmandriva.org
+After=network.target
+
+[Service]
+NotifyAccess=all
+Type=simple
+EnvironmentFile=/etc/sysconfig/builder-environment.conf
+ExecStart=/usr/bin/builder \
+		BUILD_ARCH=$BUILD_ARCH \
+		BUILD_TOKEN=$BUILD_TOKEN \
+		BUILD_PLATFORM=$BUILD_PLATFORM
+
+ExecReload=/bin/kill -s HUP $MAINPID
+TimeoutStartSec=0
+Restart=on-abnormal
+User=omv
+Group=omv
+
+[Install]
+WantedBy=multi-user.target

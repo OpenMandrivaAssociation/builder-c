@@ -11,12 +11,14 @@
 Summary:        ABF builder in pure C
 Name:           builder-c
 Version:        1.0
-Release:        11
+Release:        12
 License:        GPLv2+
 Group:          Monitoring
 Url:            https://abf.openmandriva.org
 # use version here
 Source0:	https://github.com/DuratarskeyK/builder-c/archive/master.tar.gz
+Source1:	builder.service
+Source2:	builder-environment.conf
 
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libconfig)
@@ -45,8 +47,12 @@ install -m755 builder %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{_sysconfdir}/%{name}
 install -m755 filestore_upload.sh %{buildroot}%{_sysconfdir}/%{name}
 install -m644 builder.conf %{buildroot}%{_sysconfdir}/%{name}
+install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
+install -D -p -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/builder-environment.conf
 
 %files
 %{_bindir}/builder
 %{_sysconfdir}/%{name}/builder.conf
 %{_sysconfdir}/%{name}/filestore_upload.sh
+%{_unitdir}/%{name}.service
+%{_sysconfdir}/sysconfig/builder-environment.conf
