@@ -16,7 +16,7 @@ License:        GPLv2+
 Group:          Monitoring
 Url:            https://abf.openmandriva.org
 # use version here
-Source0:	https://github.com/DuratarskeyK/builder-c/archive/1.1.tar.gz
+Source0:	https://github.com/DuratarskeyK/builder-c/archive/%{version}.tar.gz
 Source1:	builder.service
 Source2:	builder-environment.conf
 
