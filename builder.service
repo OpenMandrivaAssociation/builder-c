@@ -5,7 +5,7 @@ After=network.target
 [Service]
 NotifyAccess=all
 Type=simple
-EnvironmentFile=/etc/sysconfig/builder-environment.conf
+EnvironmentFile=-/etc/sysconfig/builder-environment.conf
 ExecStart=/usr/bin/builder
 
 ExecReload=/bin/kill -s HUP $MAINPID
