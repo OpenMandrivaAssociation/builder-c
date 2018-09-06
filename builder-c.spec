@@ -19,6 +19,7 @@ Url:            https://abf.openmandriva.org
 Source0:	https://github.com/DuratarskeyK/builder-c/archive/%{version}.tar.gz
 Source1:	builder.service
 Source2:	builder-environment.conf
+Requires:	curl
 
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libconfig)
