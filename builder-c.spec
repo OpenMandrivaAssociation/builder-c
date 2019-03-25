@@ -36,7 +36,7 @@ Builder for ABF.
 %build
 %setup_compile_flags
 %if %{with jemalloc}
-MALLOC_FLAGS="-L`jemalloc-config --libdir` -ljemalloc `jemalloc-config --libs`"
+MALLOC_FLAGS="-L$(jemalloc-config --libdir) -Wl,-rpath,$(jemalloc-config --libdir) -ljemalloc $(jemalloc-config --libs)"
 %else
 MALLOC_FLAGS=""
 %endif
