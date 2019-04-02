@@ -10,7 +10,7 @@
 
 Summary:        ABF builder in pure C
 Name:           builder-c
-Version:        1.3.10
+Version:        1.4.1
 Release:        1
 License:        GPLv2+
 Group:          Monitoring
@@ -40,10 +40,12 @@ MALLOC_FLAGS="-L$(jemalloc-config --libdir) -Wl,-rpath,$(jemalloc-config --libdi
 %else
 MALLOC_FLAGS=""
 %endif
-%{__cc} %{optflags} %{ldflags} $MALLOC_FLAGS -lconfig -lcurl -pthread parse_job_description.c \
-	system_with_output.c config.c dns_checker.c \
-	logger.c jsmn.c statistics.c live_inspector.c \
-	live_logger.c exec_build.c api.c main.c -o builder
+%{__cc}  %{optflags} %{ldflags} $MALLOC_FLAGS \
+	-lconfig -lcurl -pthread -O2 xmalloc.c \
+	parse_job_description.c system_with_output.c \
+	config.c dns_checker.c logger.c jsmn.c \
+	statistics.c live_inspector.c live_logger.c \
+	exec_build.c api.c main.c -o builder
 
 %install
 mkdir -p %{buildroot}%{_bindir}
