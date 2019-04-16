@@ -11,7 +11,7 @@
 Summary:        ABF builder in pure C
 Name:           builder-c
 Version:        1.4.1
-Release:        1
+Release:        2
 License:        GPLv2+
 Group:          Monitoring
 Url:            https://abf.openmandriva.org
@@ -32,6 +32,7 @@ Builder for ABF.
 
 %prep
 %setup -q
+sed -i 's!http://abf-n-file-store.rosalinux.ru!http://file-store.openmandriva.org!g' builder.conf
 
 %build
 %setup_compile_flags
