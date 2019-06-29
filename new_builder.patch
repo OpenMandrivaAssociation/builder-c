@@ -1,0 +1,13 @@
+diff --git a/exec_build.h b/exec_build.h
+index add0bd0..4a642a8 100644
+--- a/exec_build.h
++++ b/exec_build.h
+@@ -3,7 +3,7 @@
+ 
+ #include "structs.h"
+ 
+-static const char cmd_fmt[] = "/bin/bash /%s/build-rpm.sh 1>&%d 2>&%d";
++static const char cmd_fmt[] = "/usr/bin/python /%s/build-rpm.py 1>&%d 2>&%d";
+ 
+ typedef struct {
+ 	char * const *env;

@@ -11,7 +11,7 @@
 Summary:        ABF builder in pure C
 Name:           builder-c
 Version:        1.4.1
-Release:        2
+Release:        3
 License:        GPLv2+
 Group:          Monitoring
 Url:            https://abf.openmandriva.org
@@ -19,6 +19,7 @@ Url:            https://abf.openmandriva.org
 Source0:	https://github.com/DuratarskeyK/builder-c/archive/%{version}.tar.gz
 Source1:	builder.service
 Source2:	builder-environment.conf
+Patch0:		new_builder.patch
 Requires:	curl
 
 BuildRequires:  pkgconfig(libcurl)
@@ -31,7 +32,7 @@ BuildRequires:  pkgconfig(jemalloc)
 Builder for ABF.
 
 %prep
-%setup -q
+%autosetup -p1
 sed -i 's!http://abf-n-file-store.rosalinux.ru!http://file-store.openmandriva.org!g' builder.conf
 
 %build
