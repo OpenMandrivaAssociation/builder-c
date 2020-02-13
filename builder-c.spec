@@ -33,7 +33,8 @@ Builder for ABF.
 
 %prep
 %autosetup -p1
-sed -i 's!http://abf-n-file-store.rosalinux.ru!http://file-store.openmandriva.org!g' builder.conf
+sed -i 's!http://abf-n-file-store.rosalinux.ru!https://file-store.openmandriva.org!g' builder.conf
+sed -i 's!http!https!g' filestore_upload.sh
 
 %build
 %setup_compile_flags
