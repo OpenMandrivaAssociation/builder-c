@@ -10,7 +10,7 @@
 
 Summary:        ABF builder in pure C
 Name:           builder-c
-Version:        1.5.3
+Version:        1.5.5
 Release:        1
 License:        GPLv2+
 Group:          Monitoring
