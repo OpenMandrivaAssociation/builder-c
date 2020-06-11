@@ -24,6 +24,7 @@ Requires:	curl
 
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libconfig)
+BuildRequires:  pkgconfig(openssl)
 %if %{with jemalloc}
 BuildRequires:  pkgconfig(jemalloc)
 %endif
