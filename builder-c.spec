@@ -55,13 +55,13 @@ install -m644 builder.conf %{buildroot}%{_sysconfdir}/%{name}
 install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
 install -D -p -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/builder-environment.conf
 install -D -p -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/%{name}/builder.conf
-install -D -p -m 0644 %{SOURCE4} %{buildroot}%{_sysuserdir}/builder.conf
+install -D -p -m 0644 %{SOURCE4} %{buildroot}%{_sysusersdir}/builder.conf
 install -D -p -m 0644 %{SOURCE5} %{buildroot}%{_tmpfilesdir}/builder.conf
 
 %files
 %{_bindir}/builder
 %{_sysconfdir}/%{name}/builder.conf
 %{_unitdir}/%{name}.service
-%{_sysuserdir}/builder.conf
+%{_sysusersdir}/builder.conf
 %{_tmpfilesdir}/builder.conf
 %config(noreplace) %{_sysconfdir}/sysconfig/builder-environment.conf
