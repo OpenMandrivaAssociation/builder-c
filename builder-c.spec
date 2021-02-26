@@ -8,25 +8,25 @@
 %bcond_without jemalloc
 %endif
 
-Summary:        ABF builder in pure C
-Name:           builder-c
+Summary:	ABF builder in pure C
+Name:		builder-c
 Version:	1.5.6
 Release:	1
-License:        GPLv2+
-Group:          Monitoring
-Url:            https://abf.openmandriva.org
+License:	GPLv2+
+Group:		Monitoring
+Url:		https://abf.openmandriva.org
 # use version here
 Source0:	https://github.com/DuratarskeyK/builder-c/archive/%{version}.tar.gz
 Source1:	builder.service
 Source2:	builder-environment.conf
 Source3:	builder.conf
 Requires:	curl
-
-BuildRequires:  pkgconfig(libcurl)
-BuildRequires:  pkgconfig(libconfig)
-BuildRequires:  pkgconfig(openssl)
+Requires:	sudo
+BuildRequires:	pkgconfig(libcurl)
+BuildRequires:	pkgconfig(libconfig)
+BuildRequires:	pkgconfig(openssl)
 %if %{with jemalloc}
-BuildRequires:  pkgconfig(jemalloc)
+BuildRequires:	pkgconfig(jemalloc)
 %endif
 
 %description
