@@ -1,13 +1,13 @@
 [Unit]
 Description=OpenMandriva builder application for abf.openmandriva.org
-After=network.target
+Wants=local-fs.target
+After=network.target local-fs.target
 
 [Service]
 NotifyAccess=all
 Type=simple
 EnvironmentFile=-/etc/sysconfig/builder-environment.conf
 ExecStart=/usr/bin/builder
-
 ExecReload=/bin/kill -s HUP $MAINPID
 TimeoutStartSec=0
 Restart=on-abnormal
