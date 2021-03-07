@@ -1,0 +1,30 @@
+From c9be53ec27343c0f90905e4e9cd4ddb0e178f84b Mon Sep 17 00:00:00 2001
+From: tpgxyz <tpgxyz@gmail.com>
+Date: Wed, 3 Mar 2021 17:06:24 +0100
+Subject: [PATCH 1/1] better logging for DNS retry
+
+---
+ dns_checker.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/dns_checker.c b/dns_checker.c
+index 87bbf1e..c94164b 100644
+--- a/dns_checker.c
++++ b/dns_checker.c
+@@ -15,11 +15,11 @@ int check_dns() {
+ 	
+ 	    int result = getaddrinfo("github.com", NULL, &hints, &infoptr);
+ 	    if (result) {
+-		    log_printf(LOG_INFO, "getaddrinfo: %s\n", gai_strerror(result));
+ 		    if ( try < DNS_RETRIES ) {
+-			log_printf(LOG_ERROR, "Sleeping for 5 seconds.\n");
++			log_printf(LOG_INFO, "getaddrinfo: %s\n Retrying DNS after 5 seconds.\n", gai_strerror(result));
+ 			sleep(5);
+ 		    } else {
++			    log_printf(LOG_ERROR, "getaddrinfo: %s\n", gai_strerror(result));
+ 			    return -1;
+ 			}
+ 	    } else {
+-- 
+2.30.1
+
