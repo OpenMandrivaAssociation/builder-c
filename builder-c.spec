@@ -11,7 +11,7 @@
 Summary:	ABF client builder in pure C
 Name:		builder-c
 Version:	1.5.6
-Release:	3
+Release:	4
 License:	GPLv2+
 Group:		Monitoring
 Url:		https://abf.openmandriva.org
@@ -81,13 +81,24 @@ install -m644 builder.conf %{buildroot}%{_sysconfdir}/%{name}
 install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
 install -D -p -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/builder-environment.conf
 install -D -p -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/%{name}/builder.conf
-install -D -p -m 0644 %{SOURCE4} %{buildroot}%{_sysusersdir}/builder.conf
-install -D -p -m 0644 %{SOURCE5} %{buildroot}%{_tmpfilesdir}/builder.conf
+install -D -p -m 0644 %{SOURCE4} %{buildroot}%{_sysusersdir}/%{name}.conf
+install -D -p -m 0644 %{SOURCE5} %{buildroot}%{_tmpfilesdir}/%{name}.conf
+
+%post
+if grep -qE "mock.*NOPASSWD.*" /etc/sudoers; then
+    printf "%s\n"  "%mock ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+fi
+
+%transfiletriggerin -- /etc/mock
+chown -R omv:mock /etc/mock
+
+%transfiletriggerpostun -- /etc/mock
+chown -R omv:mock /etc/mock
 
 %files
 %{_bindir}/builder
 %{_sysconfdir}/%{name}/builder.conf
 %{_unitdir}/%{name}.service
-%{_sysusersdir}/builder.conf
-%{_tmpfilesdir}/builder.conf
+%{_sysusersdir}/%{name}.conf
+%{_tmpfilesdir}/%{name}.conf
 %config(noreplace) %{_sysconfdir}/sysconfig/builder-environment.conf
