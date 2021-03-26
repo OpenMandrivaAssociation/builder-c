@@ -11,7 +11,7 @@
 Summary:	ABF client builder in pure C
 Name:		builder-c
 Version:	1.5.6
-Release:	4
+Release:	5
 License:	GPLv2+
 Group:		Monitoring
 Url:		https://abf.openmandriva.org
@@ -85,7 +85,7 @@ install -D -p -m 0644 %{SOURCE4} %{buildroot}%{_sysusersdir}/%{name}.conf
 install -D -p -m 0644 %{SOURCE5} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 
 %post
-if grep -qE "mock.*NOPASSWD.*" /etc/sudoers; then
+if ! grep -qE "mock.*NOPASSWD.*" /etc/sudoers; then
     printf "%s\n"  "%mock ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 fi
 
