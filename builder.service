@@ -12,6 +12,7 @@ ExecStart=/usr/bin/builder
 ExecReload=/bin/kill -s HUP $MAINPID
 TimeoutStartSec=0
 Restart=on-abnormal
+StandardOutput=null
 
 [Install]
 WantedBy=multi-user.target
