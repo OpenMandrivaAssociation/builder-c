@@ -1,17 +1,9 @@
-%ifarch aarch64
-# As of cooker 4.0-20180505, jemalloc 5.0.1, builder-c crashes on startup
-# on Snapdragon 820 based boards (works fine on other aarch64 boards
-# though) if built with jemalloc. Works fine on any board with
-# glibc malloc.
-%bcond_with jemalloc
-%else
 %bcond_without jemalloc
-%endif
 
 Summary:	ABF client builder in pure C
 Name:		builder-c
 Version:	1.5.6
-Release:	6
+Release:	7
 License:	GPLv2+
 Group:		Monitoring
 Url:		https://abf.openmandriva.org
@@ -96,6 +88,7 @@ chown -R omv:mock /etc/mock
 chown -R omv:mock /etc/mock
 
 %files
+%dir %{_sysconfdir}/%{name}
 %{_bindir}/builder
 %{_sysconfdir}/%{name}/builder.conf
 %{_unitdir}/%{name}.service
