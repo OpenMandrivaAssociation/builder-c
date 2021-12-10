@@ -2,16 +2,13 @@
 
 Summary:	ABF client builder in pure C
 Name:		builder-c
-Version:	1.5.6
-Release:	7
+Version:	1.5.7
+Release:	1
 License:	GPLv2+
 Group:		Monitoring
 Url:		https://abf.openmandriva.org
 # use version here
 Source0:	https://github.com/DuratarskeyK/builder-c/archive/%{version}.tar.gz
-# (tpg) these were merged by upstream, so remove when new version is released
-Patch0:		0000-try-to-retry-DNS-catch.patch
-Patch1:		0001-better-logging-for-DNS-retry.patch
 Source1:	builder.service
 Source2:	builder-environment.conf
 Source3:	builder.conf
