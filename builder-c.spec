@@ -17,7 +17,7 @@ Source5:	builder.tmpfiles
 BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	pkgconfig(libconfig)
 BuildRequires:	pkgconfig(openssl)
-BuildRequires:	systemd-macros
+BuildRequires:	systemd-rpm-macros
 %if %{with jemalloc}
 BuildRequires:	pkgconfig(jemalloc)
 %endif
