@@ -3,7 +3,7 @@
 Summary:	ABF client builder in pure C
 Name:		builder-c
 Version:	1.5.7
-Release:	2
+Release:	3
 License:	GPLv2+
 Group:		Monitoring
 Url:		https://abf.openmandriva.org
@@ -41,6 +41,8 @@ Requires:	gnupg
 Requires:	hostname
 Requires:	python-yaml
 Requires:	python-magic
+Requires(pre):	systemd
+%systemd_requires
 
 %description
 Client builder for abf.openmandriva.org.
@@ -72,6 +74,9 @@ install -D -p -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/builder-en
 install -D -p -m 0644 %{SOURCE3} %{buildroot}%{_sysconfdir}/%{name}/builder.conf
 install -D -p -m 0644 %{SOURCE4} %{buildroot}%{_sysusersdir}/%{name}.conf
 install -D -p -m 0644 %{SOURCE5} %{buildroot}%{_tmpfilesdir}/%{name}.conf
+
+%pre
+%sysusers_create_package %{name} %{SOURCE4}
 
 %post
 if ! grep -qE "mock.*NOPASSWD.*" /etc/sudoers; then
