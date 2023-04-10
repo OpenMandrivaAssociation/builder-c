@@ -14,6 +14,7 @@ Source2:	builder-environment.conf
 Source3:	builder.conf
 Source4:	builder.sysusers
 Source5:	builder.tmpfiles
+Patch0:		builder-c-1.5.7-fixes-for-newer-toolchains.patch
 BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	pkgconfig(libconfig)
 BuildRequires:	pkgconfig(openssl)

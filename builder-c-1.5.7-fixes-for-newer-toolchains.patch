@@ -1,0 +1,131 @@
+diff -up builder-c-1.5.7/api.c.omv~ builder-c-1.5.7/api.c
+--- builder-c-1.5.7/api.c.omv~	2023-04-10 21:02:15.728709312 +0200
++++ builder-c-1.5.7/api.c	2023-04-10 21:02:24.229793779 +0200
+@@ -91,7 +91,6 @@ static int curl_put(const char *url, con
+ 	curl_easy_setopt(curl, CURLOPT_READFUNCTION, read_callback);
+ 	curl_easy_setopt(curl, CURLOPT_READDATA, &mem);
+ 	curl_easy_setopt(curl, CURLOPT_UPLOAD, 1L);
+-	curl_easy_setopt(curl, CURLOPT_PUT, 1L);
+ 	curl_easy_setopt(curl, CURLOPT_URL, url);
+ 	curl_easy_setopt(curl, CURLOPT_USERAGENT, "libcurl-agent/1.0");
+ 	curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1);
+diff -up builder-c-1.5.7/dns_checker.c.omv~ builder-c-1.5.7/dns_checker.c
+--- builder-c-1.5.7/dns_checker.c.omv~	2023-04-10 21:01:25.923208000 +0200
++++ builder-c-1.5.7/dns_checker.c	2023-04-10 21:01:51.483466678 +0200
+@@ -2,11 +2,12 @@
+ #include <sys/types.h>
+ #include <sys/socket.h>
+ #include <netdb.h>
++#include <unistd.h>
+ #include "dns_checker.h"
+ 
+ static struct addrinfo hints, *infoptr;
+ 
+-int check_dns() {
++int check_dns(void) {
+ 	hints.ai_family = AF_UNSPEC;
+ 	hints.ai_socktype = SOCK_STREAM;
+ 	hints.ai_flags = AI_PASSIVE;
+diff -up builder-c-1.5.7/dns_checker.h.omv~ builder-c-1.5.7/dns_checker.h
+--- builder-c-1.5.7/dns_checker.h.omv~	2023-04-10 21:01:40.663357545 +0200
++++ builder-c-1.5.7/dns_checker.h	2023-04-10 21:01:44.684398164 +0200
+@@ -5,7 +5,7 @@
+ 
+ #include "log_levels.h"
+ 
+-int check_dns();
++int check_dns(void);
+ 
+ extern void log_printf(unsigned int level, const char *message, ...);
+ 
+diff -up builder-c-1.5.7/init.h.omv~ builder-c-1.5.7/init.h
+--- builder-c-1.5.7/init.h.omv~	2023-04-10 21:02:34.176892225 +0200
++++ builder-c-1.5.7/init.h	2023-04-10 21:02:39.738947092 +0200
+@@ -57,9 +57,9 @@ extern void init_api(const char *url, co
+ 
+ extern int start_statistics_thread(const char *);
+ 
+-extern int check_dns();
++extern int check_dns(void);
+ 
+-extern int thread_setup();
++extern int thread_setup(void);
+ 
+ extern int init_logger(const char *level);
+ extern void register_thread(const char *name);
+diff -up builder-c-1.5.7/live_inspector.c.omv~ builder-c-1.5.7/live_inspector.c
+--- builder-c-1.5.7/live_inspector.c.omv~	2023-04-10 21:02:50.156049511 +0200
++++ builder-c-1.5.7/live_inspector.c	2023-04-10 21:02:54.323090357 +0200
+@@ -50,7 +50,7 @@ int start_live_inspector(int ttl, pid_t
+ 	return 0;
+ }
+ 
+-int stop_live_inspector() {
++int stop_live_inspector(void) {
+ 	stop = 1;
+ 	pthread_join(li_thread, NULL);
+ 	stop = 0;
+diff -up builder-c-1.5.7/live_inspector.h.omv~ builder-c-1.5.7/live_inspector.h
+--- builder-c-1.5.7/live_inspector.h.omv~	2023-04-10 21:02:45.466003454 +0200
++++ builder-c-1.5.7/live_inspector.h	2023-04-10 21:02:48.781036017 +0200
+@@ -5,7 +5,7 @@
+ 
+ static void *live_inspector(void *);
+ int start_live_inspector(int, pid_t, const char *);
+-int stop_live_inspector();
++int stop_live_inspector(void);
+ 
+ extern int api_jobs_status(const char *);
+ 
+diff -up builder-c-1.5.7/live_logger.c.omv~ builder-c-1.5.7/live_logger.c
+--- builder-c-1.5.7/live_logger.c.omv~	2023-04-10 21:03:07.717221181 +0200
++++ builder-c-1.5.7/live_logger.c	2023-04-10 21:03:10.894252108 +0200
+@@ -99,7 +99,7 @@ int start_live_logger(char *build_id, in
+ 	return 0;
+ }
+ 
+-void stop_live_logger() {
++void stop_live_logger(void) {
+ 	stop = 1;
+ 	pthread_join(buffer_dump_thread, NULL);
+ 	pthread_join(read_log_thread, NULL);
+diff -up builder-c-1.5.7/live_logger.h.omv~ builder-c-1.5.7/live_logger.h
+--- builder-c-1.5.7/live_logger.h.omv~	2023-04-10 21:02:59.460140615 +0200
++++ builder-c-1.5.7/live_logger.h	2023-04-10 21:03:02.955174750 +0200
+@@ -9,7 +9,7 @@
+ static void *buffer_dump(void *);
+ static void *read_log(void *);
+ int start_live_logger(char *, int);
+-void stop_live_logger();
++void stop_live_logger(void);
+ 
+ static const char start_build_str[] = "Starting build...\n";
+ 
+diff -up builder-c-1.5.7/main.h.omv~ builder-c-1.5.7/main.h
+--- builder-c-1.5.7/main.h.omv~	2023-04-10 21:03:15.010292119 +0200
++++ builder-c-1.5.7/main.h	2023-04-10 21:03:19.938339937 +0200
+@@ -27,10 +27,10 @@ extern int api_jobs_feedback(const char
+ extern void set_busy_status(int s, const char *build_id);
+ 
+ extern int start_live_logger(const char *, int);
+-extern void stop_live_logger();
++extern void stop_live_logger(void);
+ 
+ extern int start_live_inspector(int, pid_t, const char *);
+-extern int stop_live_inspector();
++extern int stop_live_inspector(void);
+ 
+ extern void log_printf(unsigned int level, const char *message, ...);
+ 
+diff -up builder-c-1.5.7/openssl_threaded.c.omv~ builder-c-1.5.7/openssl_threaded.c
+--- builder-c-1.5.7/openssl_threaded.c.omv~	2023-04-10 21:03:25.166390564 +0200
++++ builder-c-1.5.7/openssl_threaded.c	2023-04-10 21:03:27.893416932 +0200
+@@ -17,7 +17,7 @@ static void locking_function(int mode, i
+   }
+ }
+ 
+-int thread_setup() {
++int thread_setup(void) {
+   mutex_buf = xmalloc(CRYPTO_num_locks() * sizeof(pthread_mutex_t));
+ 
+   if (!mutex_buf) {
