@@ -2,8 +2,8 @@
 
 Summary:	ABF client builder in pure C
 Name:		builder-c
-Version:	1.5.7
-Release:	5
+Version:	1.5.8
+Release:	1
 License:	GPLv2+
 Group:		Monitoring
 Url:		https://abf.openmandriva.org
