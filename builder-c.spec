@@ -67,6 +67,7 @@ MALLOC_FLAGS="-L$(jemalloc-config --libdir) -Wl,-rpath,$(jemalloc-config --libdi
 MALLOC_FLAGS=""
 %endif
 %make_build CC=%{__cc}
+install -m0644 %{SOURCE6} .
 
 %install
 mkdir -p %{buildroot}%{_bindir}
