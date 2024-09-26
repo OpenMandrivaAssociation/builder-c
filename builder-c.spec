@@ -98,6 +98,7 @@ chown -R omv:mock /etc/mock
 %files
 %dir %{_sysconfdir}/%{name}
 %{_bindir}/builder
+%{_bindir}/logchecker
 %{_sysconfdir}/%{name}/builder.conf
 %{_unitdir}/%{name}.service
 %{_sysusersdir}/%{name}.conf
