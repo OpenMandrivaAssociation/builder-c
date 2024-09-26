@@ -2,7 +2,7 @@
 
 Summary:	ABF client builder in pure C
 Name:		builder-c
-Version:	1.5.8
+Version:	1.5.9
 Release:	2
 License:	GPLv2+
 Group:		Monitoring
@@ -14,12 +14,14 @@ Source2:	builder-environment.conf
 Source3:	builder.conf
 Source4:	builder.sysusers
 Source5:	builder.tmpfiles
+Source6:	https://raw.githubusercontent.com/OpenMandrivaSoftware/docker-builder/refs/heads/master/logchecker.go
+
 Patch0:		builder-c-1.5.7-fixes-for-newer-toolchains.patch
-Patch1:		builder-c-fix-hostname-fallback.patch
 BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	pkgconfig(libconfig)
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	systemd-rpm-macros
+BuildRequires:	golang
 %if %{with jemalloc}
 BuildRequires:	pkgconfig(jemalloc)
 %endif
@@ -69,6 +71,7 @@ MALLOC_FLAGS=""
 %install
 mkdir -p %{buildroot}%{_bindir}
 install -m755 builder %{buildroot}%{_bindir}
+go build -x -o %{buildroot}%{_bindir}/logchecker logchecker.go
 mkdir -p %{buildroot}%{_sysconfdir}/%{name}
 install -m644 builder.conf %{buildroot}%{_sysconfdir}/%{name}
 install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
