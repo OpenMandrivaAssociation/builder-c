@@ -17,6 +17,7 @@ Source5:	builder.tmpfiles
 Source6:	https://raw.githubusercontent.com/OpenMandrivaSoftware/docker-builder/refs/heads/master/logchecker.go
 
 Patch0:		builder-c-1.5.7-fixes-for-newer-toolchains.patch
+BuildRequires:	make
 BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	pkgconfig(libconfig)
 BuildRequires:	pkgconfig(openssl)
